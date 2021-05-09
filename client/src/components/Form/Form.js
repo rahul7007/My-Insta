@@ -1,28 +1,41 @@
 import { Typography, Paper, TextField, Button } from '@material-ui/core'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import useStyles from './Styles'
 import FileBase from 'react-file-base64'
-import { useDispatch } from 'react-redux'
-import { createPosts } from '../../actions/PostAction'
+import { useDispatch, useSelector } from 'react-redux'
+import { createPosts, updatePost } from '../../actions/PostAction'
 
-const Form = () => {
+const Form = (props) => {
     const classes = useStyles()
 
     const [postData, setPostData] = useState({
         creator: '', title: '', message: '', tags: '', selectedFile: ''
     })
 
+    const post = useSelector((state) => (props.currentId ? state.PostReducer.find((p) => p._id === props.currentId) : null));
+
     const dispatch = useDispatch();
 
+    useEffect(() => {
+        if (post) setPostData(post);
+    }, [post]);
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        dispatch(createPosts(postData))
+
+        //check if there is an id, if so, we'll update post rathan than create a new one
+        if (props.currentId) {
+            dispatch(updatePost(props.currentId, postData))
+        } else {
+            dispatch(createPosts(postData))
+        }
     }
 
     const clear = () => {
 
     }
+
+    console.log("Form", props.currentId)
 
     return (
         <Paper className={classes.paper}>
