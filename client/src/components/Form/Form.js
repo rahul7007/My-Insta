@@ -13,6 +13,9 @@ const Form = (props) => {
     })
 
     const post = useSelector((state) => (props.currentId ? state.PostReducer.find((p) => p._id === props.currentId) : null));
+    // state.PostReducer = whatever the PostReducer returns when we call (UPDATE, FETCH_ALL, CREATE)
+    // state.PostReducer will be all the three array we're getting from ::: "dispatch({ type: "FETCH_ALL", payload: data.data })"
+
 
     const dispatch = useDispatch();
 
@@ -34,8 +37,6 @@ const Form = (props) => {
     const clear = () => {
 
     }
-
-    console.log("Form", props.currentId)
 
     return (
         <Paper className={classes.paper}>

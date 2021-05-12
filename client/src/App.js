@@ -23,7 +23,7 @@ const App = () => {
     dispatch(getPosts())
   }, [dispatch])
 
-  console.log("APP", currentId)
+
 
   return (
     <>
@@ -38,6 +38,9 @@ const App = () => {
           <Container>
             <Grid container justify="space-between" alignItems="stretch" spacing={3}>
               <Grid item xs={12} sm={7}>
+                {/* Since setCurrentId is only available in the post component, and we need to share it with Form component,
+                    we have only App component, where both the components gettimg merge. That's why we're bringing the
+                    currentId to the APP by passing it as props to both the comonent - Post & Form */}
                 <Posts setCurrentId={setCurrentId} />
               </Grid>
               <Grid item xs={12} sm={4}>
