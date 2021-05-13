@@ -48,9 +48,20 @@ deletePosts = async (req, res) => {
     res.json({ message: "Post deleted successfully" })
 }
 
+likePosts = async (req, res) => {
+    const { id } = req.params;
+
+    const postToBeLike = await postMsglObj.findById(id)
+
+    updatedPost = await postMsglObj.findByIdAndUpdate(id, { likeCount: postToBeLike.likeCount + 1 }, { new: true })
+
+    res.send(updatedPost)
+}
+
 module.exports = {
     getPosts,
     createPosts,
     updatePosts,
-    deletePosts
+    deletePosts,
+    likePosts
 }
