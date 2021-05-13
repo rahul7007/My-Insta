@@ -15,6 +15,8 @@ const App = () => {
 
   const [currentId, setCurrentId] = useState(null)
 
+  const [delId, setDelId] = useState(null) //del
+
   const classes = useStyles()
 
   const dispatch = useDispatch();
@@ -41,10 +43,10 @@ const App = () => {
                 {/* Since setCurrentId is only available in the post component, and we need to share it with Form component,
                     we have only App component, where both the components gettimg merge. That's why we're bringing the
                     currentId to the APP by passing it as props to both the comonent - Post & Form */}
-                <Posts setCurrentId={setCurrentId} />
+                <Posts setCurrentId={setCurrentId} setDelId={setDelId} />
               </Grid>
               <Grid item xs={12} sm={4}>
-                <Form currentId={currentId} setCurrentId={setCurrentId} />
+                <Form currentId={currentId} setCurrentId={setCurrentId} delId={delId} setDelId={setDelId} />
               </Grid>
             </Grid>
           </Container>

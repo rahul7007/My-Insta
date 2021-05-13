@@ -5,6 +5,7 @@ const PostReducer = (postState = [], action) => {
         case "UPDATE": return postState.map((post) => (post._id === action.payload._id ? action.payload : post));
         case "FETCH_ALL": return action.payload //action.payload is coming from actions>PostActions
         case "CREATE": return [...postState, action.payload]
+        case "DELETE": return postState.filter((post) => post._id != action.payload)
         default: return postState
     }
 }

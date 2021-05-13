@@ -19,6 +19,9 @@ const Form = (props) => {
 
     const dispatch = useDispatch();
 
+
+    // Using this useEffect, we're population the values in the form,
+    // It'll run only when the post value ([post]) changes
     useEffect(() => {
         if (post) setPostData(post);
     }, [post]);
@@ -32,16 +35,18 @@ const Form = (props) => {
         } else {
             dispatch(createPosts(postData))
         }
+        clear() // clear the form field's once we submit/update data
     }
 
     const clear = () => {
-
+        props.setCurrentId(null)
+        setPostData({ creator: '', title: '', message: '', tags: '', selectedFile: '' })
     }
 
     return (
         <Paper className={classes.paper}>
             <form autoComplete="off" noValidate className={`${classes.root} ${classes.form}`} onSubmit={handleSubmit}>
-                <Typography variant="h6">Creating a Memory</Typography>
+                <Typography variant="h6">{props.currentId ? 'Editing' : 'Creating'} a Memory</Typography>
                 <TextField
                     name="creator"
                     variant="outlined"
@@ -89,7 +94,7 @@ const Form = (props) => {
                     size="large"
                     type="submit"
                     fullWidth
-                >Submit</Button>
+                >{props.currentId ? 'Update' : 'Submit'}</Button>
                 <Button
                     className={classes.buttonSubmit}
                     value="contained"

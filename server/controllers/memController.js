@@ -42,9 +42,15 @@ updatePosts = async (req, res) => {
     res.json(updatedPost);
 }
 
+deletePosts = async (req, res) => {
+    const { id } = req.params;
+    await postMsglObj.findByIdAndRemove(id)
+    res.json({ message: "Post deleted successfully" })
+}
 
 module.exports = {
     getPosts,
     createPosts,
-    updatePosts
+    updatePosts,
+    deletePosts
 }
